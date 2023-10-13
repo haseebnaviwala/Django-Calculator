@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Calculator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+      body{
+        text-align: center;
+        background-color: gray;
+        background-image: radial-gradient(#6dd5ed,#2193b0);
+        background-repeat: no-repeat;
+        height: 636px;
+      }
+      .calculator{
+        font-size: 70px;
+        margin-bottom: 100px;
+      }
+      #result{
+        font-size: 25px;
+        text-align: right;
+        border: black solid 1px;
+        width: 250px;
+        border-top: white;
+      }
+      #ques{
+        font-size: 25px;
+        text-align: right;
+        border: black solid 1px;
+        width: 250px;    
+        border-bottom: white;  
+      }
+      button{
+        font-size: 37px;
+      }
+      .div1 button{
+        padding: 10.4px;
+      }
+      .div2 button{
+        padding: 10.4px;
+      }
+      .div3 button{
+        padding: 10.4px;
+      }
+      .div4 button{
+        padding: 10.5px;
+      }
+      form{
+        height: 365px;
+        border: red double 3px;
+        padding-top: 30px;
+        width: 22.5%;
+        margin-left: 540px;
+      }
+    </style>
+  </head>
+  <body>
+        <div class='calculator'>
+          Calculator
+        </div>
+        <form action="calc" method="post">
+          {% csrf_token %}
+            <div class="result">
+              <div>
+                <input type="text" id= "ques" placeholder="" value={{values}} >
+              </div>
+              <input type="text" name="values" id= "result" placeholder="" value={{result}} >
+            </div>
+            <div class='main-div'>
+              <div class='div1'>                
+                <button type="button" onclick="buttonfunc(7);">7</button> 
+                <button type="button" onclick="buttonfunc(8);">8</button>  
+                <button type="button" onclick="buttonfunc(9);">9</button> 
+                <button type="button" onclick="buttonfunc('%');">%</button>
+                <button type="button" onclick="buttonfunc('+');">+</button>    
+              </div>
+              <div class='div2'> 
+                <button type="button" onclick="buttonfunc(4);">4</button> 
+                <button type="button" onclick="buttonfunc(5);">5</button>
+                <button type="button" onclick="buttonfunc(6);">6</button>
+                <button type="button" onclick="buttonfunc('(');" style='padding-left: 18px;padding-right: 18px;'>(</button> 
+                <button type="button" onclick="buttonfunc('-');" style='padding-left: 18px;padding-right: 18px;'>-</button>              
+              </div>
+              <div class='div3'>
+                <button type="button" onclick="buttonfunc(1);">1</button>
+                <button type="button" onclick="buttonfunc(2);">2</button>
+                <button type="button" onclick="buttonfunc(3);">3</button>
+                <button type="button" onclick="buttonfunc(')');" style='padding-left: 18px;padding-right: 18px;'>)</button>
+                <button type="button" onclick="buttonfunc('x');" style='padding-left: 13px;padding-right: 13px;'>&#215;</button>
+              </div>
+              <div class='div4'>
+                <button type="button" onclick="buttonfunc('AC');" style='padding-left: 6.3px;padding-right: 6.3px;'>AC</button>
+                <button type="button" onclick="buttonfunc(0);">0</button>
+                <button type="button" onclick="buttonfunc('.');">.</button>
+                <button type="submit">=</button>                
+                <button type="button" onclick="buttonfunc('&divide');">&#247;</button> 
+              </div>
+            </div>
+            
+        </form>
+        <div>
+          <h4 id = 'errors'>{{errors}}</h4>
+        </div>
+
+  </body>
+  <script type="text/javascript">
+  function buttonfunc(buttonValue){
+            if (buttonValue == "AC")
+            {
+              $('#ques').val('');
+              $('#result').val('');
+              $('#errors').text('')
+            }
+            else {
+              var inputElementIs = document.getElementById("result");
+              inputElementIs.value =  inputElementIs.value + buttonValue;
+              $('#result').val(inputElementIs.value);
+            }
+        }
+  </script>
+</html>
